@@ -21795,7 +21795,7 @@ with pkgs;
   check_systemd = callPackage ../servers/monitoring/nagios/plugins/check_systemd.nix { };
 
   neo4j = callPackage ../servers/nosql/neo4j {
-    jre = jre11_headless;
+    jre = jdk11_headless; # No jre11 available yet
   };
 
   neo4j-desktop = callPackage ../applications/misc/neo4j-desktop { };
