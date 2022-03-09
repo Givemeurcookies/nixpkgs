@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     cp -R * "$out/share/neo4j"
 
     mkdir -p "$out/bin"
-    for NEO4J_SCRIPT in neo4j neo4j-admin neo4j-import cypher-shell
+    for NEO4J_SCRIPT in neo4j neo4j-admin cypher-shell
     do
         makeWrapper "$out/share/neo4j/bin/$NEO4J_SCRIPT" \
             "$out/bin/$NEO4J_SCRIPT" \
