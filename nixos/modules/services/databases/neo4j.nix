@@ -46,6 +46,7 @@ let
     dbms.directories.certificates=${cfg.directories.certificates}
     dbms.directories.data=${cfg.directories.data}
     dbms.directories.logs=${cfg.directories.home}/logs
+    dbms.directories.run=${cfg.directories.home}/run
     dbms.directories.plugins=${cfg.directories.plugins}
     ${optionalString (cfg.constrainLoadCsv) ''
       dbms.directories.import=${cfg.directories.imports}
