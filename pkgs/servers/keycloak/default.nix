@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, makeWrapper, jre, which, gawk }:
+{ lib, stdenv, fetchzip, makeWrapper, jre, which, gawk }:
 
 with lib;
 
