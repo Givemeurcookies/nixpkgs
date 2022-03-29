@@ -1,21 +1,7 @@
-{ stdenv, lib, fetchzip, makeWrapper, jre, writeText, nixosTests
-, postgresql_jdbc ? null, mysql_jdbc ? null
-}:
+{ lib, stdenv, fetchurl, makeWrapper, jre, which, gawk }:
 
-let
-  mkModuleXml = name: jarFile: writeText "module.xml" ''
-    <?xml version="1.0" ?>
-    <module xmlns="urn:jboss:module:1.3" name="${name}">
-        <resources>
-            <resource-root path="${jarFile}"/>
-        </resources>
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="javax.transaction.api"/>
-        </dependencies>
-    </module>
-  '';
-in
+with lib;
+
 stdenv.mkDerivation rec {
   pname   = "keycloak";
   version = "17.0.1";
@@ -33,7 +19,9 @@ stdenv.mkDerivation rec {
 
     rm -rf $out/bin/*.{ps1,bat}
 
-    wrapProgram $out/bin/kc.sh --set JAVA_HOME ${jre}
+    wrapProgram $out/bin/kc.sh \
+            --prefix PATH : "${lib.makeBinPath [ jre which gawk ]}" \
+            --set JAVA_HOME "${jre}"
   '';
 
   #passthru.tests = nixosTests.keycloak;
@@ -45,5 +33,5 @@ stdenv.mkDerivation rec {
     platforms   = jre.meta.platforms;
     maintainers = with maintainers; [ ngerstle talyz ];
   };
-
 }
+
